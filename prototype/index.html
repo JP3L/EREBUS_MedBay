@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MedBay">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>EREBUS MedBay — Cyber-Clinical Response Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #install-btn {
+      display: none;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 4px 10px;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    #install-btn:hover { background: rgba(54, 224, 255, 0.12); }
+    #install-btn.show { display: inline-block; }
+  </style>
+</head>
+<body>
+  <header class="hud">
+    <div class="brand">EREBUS // MEDBAY</div>
+    <div class="right">
+      <span class="stat" id="hud-progress">Stabilized <b>0/3</b></span>
+      <span class="stat" id="hud-time">T+00:00</span>
+      <span class="stat">OP: 4128-ALPHA</span>
+      <button id="install-btn" type="button" title="Install as app">▾ Install</button>
+    </div>
+  </header>
+  <main id="app"></main>
+  <script type="module" src="app.js"></script>
+  <script>
+    // Service worker + PWA install prompt
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch((err) => {
+          console.warn("SW registration failed:", err);
+        });
+      });
+    }
+    let deferredPrompt = null;
+    const installBtn = document.getElementById("install-btn");
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.classList.add("show");
+    });
+    installBtn?.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.classList.remove("show");
+    });
+    window.addEventListener("appinstalled", () => {
+      installBtn.classList.remove("show");
+    });
+  </script>
+</body>
+</html>

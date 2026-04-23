@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Claude Code local config
+.claude/
+
+# CISO outreach materials — kept local until partner is formally onboarded.
+# Remove these lines and `git add` the files after outreach if you want them public.
+CISO-memo.md
+CISO-memo.pdf
+.memo-style.css
+
+# Generated SVG sources — regenerate with `node export-svg.mjs`.
+# PNG outputs in prototype/export/panels/ ARE committed since they're the
+# actual assets you upload to ShapesXR.
+prototype/export/svg/
+
+# Old Chrome headless panel exporter artifacts (superseded by SVG→PNG pipeline)
+prototype/export/panels/*.svg.png
+
+# Node
+node_modules/
+
+# Editor / OS
+*.log
+.idea/
+.vscode/

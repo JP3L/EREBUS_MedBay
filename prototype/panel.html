@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>EREBUS MedBay — Panel Export</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Export-only overrides: fixed-size, no-chrome, optimized for screenshot */
+    html, body { overflow: hidden; }
+    body::before { display: none; } /* kill the grid overlay for cleaner asset */
+    body {
+      width: 1024px;
+      height: 768px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      background: linear-gradient(135deg, #05070d 0%, #0a1220 100%);
+    }
+    .panel-card {
+      width: 960px;
+      max-height: 720px;
+      background: rgba(16, 32, 56, 0.95);
+      border: 1px solid var(--panel-edge);
+      border-radius: 6px;
+      padding: 32px 40px;
+      box-shadow: 0 0 80px rgba(54, 224, 255, 0.12);
+      overflow: hidden;
+    }
+    .panel-card .erebus-mark {
+      position: absolute;
+      top: 18px;
+      left: 24px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      opacity: 0.6;
+    }
+    .panel-card .panel-id {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-dim);
+      opacity: 0.5;
+    }
+    .panel-card h2 { margin-top: 0; font-size: 26px; }
+    .panel-card .body { font-size: 18px; }
+    .panel-compare .col ul { font-size: 15px; }
+    .panel-diag { font-size: 15px; }
+    .panel-log { font-size: 14px; max-height: 200px; }
+    .verdict { font-size: 15px; }
+    button.choice { font-size: 16px; padding: 16px 20px; }
+    .teaching ul li { font-size: 15px; }
+    .banner { margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <div id="panel"></div>
+  <script type="module" src="panel.js"></script>
+</body>
+</html>
